@@ -9,6 +9,9 @@
 #include <string>
 #include "nlohmann/json.hpp"
 
+#include <cstdint>   
+typedef uint8_t uint8; 
+
 enum class TrackingType {
 	DEFAULT,	//!< Deprecated, contains only closure values 
 	WEART_HAND,	//!< Tracking with closures, and abduction value for thumb

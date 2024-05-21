@@ -78,4 +78,3 @@ private:
 	TextureType _textureType;
 	float _textureVelocity;
 };
-

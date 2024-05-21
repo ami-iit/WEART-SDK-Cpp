@@ -35,5 +35,3 @@ public:
 private:
 	float _value;
 };
-
-

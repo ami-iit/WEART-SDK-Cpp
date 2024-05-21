@@ -44,4 +44,3 @@ private:
 	Sample lastSample;
 	std::vector<std::function<void(Sample)>> callbacks;
 };
-

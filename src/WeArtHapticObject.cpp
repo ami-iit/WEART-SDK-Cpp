@@ -4,8 +4,8 @@
 */
 
 
-#include "WeArtHapticObject.h"
-#include "WeArtController.h"
+#include <WEART_SDK/WeArtHapticObject.h>
+#include <WEART_SDK/WeArtController.h>
 #include <algorithm>
 
 WeArtHapticObject::WeArtHapticObject(WeArtClient* client) {

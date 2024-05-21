@@ -1,4 +1,4 @@
-#include "WeArtEffect.h"
+#include <WEART_SDK/WeArtEffect.h>
 
 bool TouchEffect::Set(WeArtTemperature temp, WeArtForce force, WeArtTexture texture) {
 	bool changed = false;

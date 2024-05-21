@@ -1,4 +1,4 @@
-#include "WeArtMessages.h"
+#include <WEART_SDK/WeArtMessages.h>
 #include <sstream>
 #include <chrono>
 

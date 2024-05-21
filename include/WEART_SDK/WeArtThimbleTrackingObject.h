@@ -34,4 +34,3 @@ protected:
 	float _closure;
 	float _abduction;
 };
-

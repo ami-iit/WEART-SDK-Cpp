@@ -128,4 +128,3 @@ private:
 	PCSTR IP_ADDESS;
 	PCSTR PORT;
 };
-

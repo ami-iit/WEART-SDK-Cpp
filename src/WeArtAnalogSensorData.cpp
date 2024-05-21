@@ -3,9 +3,8 @@
 *	https://www.weart.it/
 */
 
-#include "pch.h"
-#include "WeArtAnalogSensorData.h"
-#include "WeArtController.h"
+#include <WEART_SDK/WeArtAnalogSensorData.h>
+#include <WEART_SDK/WeArtController.h>
 
 WeArtAnalogSensorData::WeArtAnalogSensorData(HandSide side, ActuationPoint actuation)
 	: WeArtMessageListener({ AnalogSensorsData::ID }) {

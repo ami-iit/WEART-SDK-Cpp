@@ -45,4 +45,3 @@ private:
 	std::queue<Sample> samples;
 	std::vector<std::function<void(Sample)>> callbacks;
 };
-

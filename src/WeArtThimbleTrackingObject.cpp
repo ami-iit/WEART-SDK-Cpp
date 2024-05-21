@@ -3,7 +3,7 @@
 *	https://www.weart.it/
 */
 
-#include "WeArtThimbleTrackingObject.h"
+#include <WEART_SDK/WeArtThimbleTrackingObject.h>
 
 WeArtThimbleTrackingObject::WeArtThimbleTrackingObject(HandSide side, ActuationPoint actuation)
 	: WeArtMessageListener({ TrackingMessage::ID }) {

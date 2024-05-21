@@ -3,17 +3,28 @@
 *	https://www.weart.it/
 */
 
-#include "WeArtClient.h"
+#include <WEART_SDK/WeArtClient.h>
 #include <iostream>
 
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>
 #include <ws2tcpip.h>
-#include <windows.h>
-
 
 #include <ppltasks.h>
-using namespace Windows::Foundation;
+
+#include <roapi.h>
+#include <wrl.h>
+
+#include <Windows.Foundation.h>
+#include <Windows.System.Threading.h>
+#include <wrl/event.h>
+#include <stdio.h>
+#include <Objbase.h>
+
+using namespace ABI::Windows::Foundation;
+using namespace ABI::Windows::System::Threading;
+using namespace Microsoft::WRL;
+using namespace Microsoft::WRL::Wrappers;
 
 // Need to link with Ws2_32.lib, Mswsock.lib, and Advapi32.lib
 #pragma comment (lib, "Ws2_32.lib")
@@ -111,13 +122,24 @@ void WeArtClient::Run() {
 	Connected = true;
 	NotifyConnectionStatus(true);
 
+    // Initialize the Windows Runtime.
+    RoInitializeWrapper initialize(RO_INIT_MULTITHREADED);
+    ComPtr<IThreadPoolStatics> threadPool;
+    HRESULT hr = GetActivationFactory(HStringReference(RuntimeClass_Windows_System_Threading_ThreadPool).Get(), &threadPool);
+    Event threadCompleted(CreateEventEx(nullptr, nullptr, CREATE_EVENT_MANUAL_RESET, WRITE_OWNER | EVENT_ALL_ACCESS));
+    hr = threadCompleted.IsValid() ? S_OK : HRESULT_FROM_WIN32(GetLastError());
 
-	// receive data in background 
-	auto workItem = ref new Windows::System::Threading::WorkItemHandler([this](IAsyncAction^ workItem) {
-		OnReceive();
-		});
+    // receive data in background
+    ComPtr<IAsyncAction> asyncAction;
+    hr = threadPool->RunAsync(Callback<IWorkItemHandler>([this, &threadCompleted](IAsyncAction* asyncAction) -> HRESULT
+    {
+        OnReceive();
 
-	auto asyncAction = Windows::System::Threading::ThreadPool::RunAsync(workItem);
+        // Set the completion event and return.
+        SetEvent(threadCompleted.Get());
+        return S_OK;
+
+    }).Get(), &asyncAction);
 
 	// Ask first middleware status
 	GetMiddlewareStatus getStatusMessage;
@@ -379,15 +401,11 @@ void WeArtClient::AddThimbleRawSensors(WeArtTrackingRawData* rawSensorsData) {
 	AddMessageListener(rawSensorsData);
 }
 
-void WeArtClient::AddThimbleAnalogRawSensor(WeArtAnalogSensorData* analogRawSensorData) {
-	AddMessageListener(analogRawSensorData);
-}
-
 std::string WSAGetLastErrorString() {
 	int errorCode = WSAGetLastError();
 
 	LPWSTR errorBuffer = nullptr;
-	FormatMessage(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
+	FormatMessageW(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
 		nullptr, errorCode, MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), reinterpret_cast<LPWSTR>(&errorBuffer), 0, nullptr);
 
 	std::wstring errorWString(errorBuffer);

@@ -3,9 +3,9 @@
 *	https://www.weart.it/
 */
 
-#include "pch.h"
-#include "WeArtTrackingRawData.h"
-#include "WeArtController.h"
+
+#include <WEART_SDK/WeArtTrackingRawData.h>
+#include <WEART_SDK/WeArtController.h>
 
 WeArtTrackingRawData::WeArtTrackingRawData(HandSide side, ActuationPoint actuation)
 	: WeArtMessageListener({ RawSensorsData::ID }) {

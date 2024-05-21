@@ -24,16 +24,6 @@ int32_t handSideFlag;
 int32_t actuationPointFlag;
 ```
 
-### MiddlewareStatusListener.cpp :
-- The line:
-```c++
-#include "MiddlewareStatusListener.h"
-```
-changed to 
-```c++
-#include <WEART_SDK/MiddlewareStatusListener.h>
-```
-
 ### WeArtClient.cpp :
 - Added the lines:
 ```c++
@@ -104,90 +94,5 @@ FormatMessageW(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FOR
 		nullptr, errorCode, MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), reinterpret_cast<LPWSTR>(&errorBuffer), 0, nullptr);
 ```
 
-### WeArtEffect.cpp :
-- The line:
-```c++
-#include "WeArtEffect.h"
-```
-changed to 
-```c++
-#include <WEART_SDK/WeArtEffect.h>
-```
-
-### WeArtHapticObject.cpp :
-- Changed lines:
-```c++
-#include "WeArtHapticObject.h"
-#include "WeArtController.h"
-```
-to 
-```c++
-#include <WEART_SDK/WeArtHapticObject.h>
-#include <WEART_SDK/WeArtController.h>
-```
-
-### WeArtMessageSerializer.cpp :
-- The lines:
-```c++
-#include "WeArtMessageSerializer.h"
-#include "nlohmann/json.hpp"
-```
-changed to 
-```c++
-#include <WEART_SDK/WeArtMessageSerializer.h>
-#include <WEART_SDK/nlohmann/json.hpp>
-```
-
-### WeArtMessages.cpp :
-- The line:
-```c++
-#include "WeArtMessages.h"
-```
-changed to 
-```c++
-#include <WEART_SDK/WeArtMessages.h>
-```
-
 ### WeArtAnalogSensorData.cpp :
 - Removed the line: `include "pch.h"`
-- The line:
-```c++
-#include "WeArtAnalogSensorData.h"
-#include "WeArtController.h"
-```
-changed to 
-```c++
-#include <WEART_SDK/WeArtAnalogSensorData.h>
-#include <WEART_SDK/WeArtController.h>
-```
-
-### WeArtThimbleTrackingObject.cpp :
-- The line:
-```c++
-#include "WeArtThimbleTrackingObject.h"
-```
-changed to 
-```c++
-#include <WEART_SDK/WeArtThimbleTrackingObject.h>
-```
-
-### WeArtTrackingCalibration.cpp :
-- The line:
-```c++
-#include "WeArtTrackingCalibration.h"
-```
-changed to 
-```c++
-#include <WEART_SDK/WeArtTrackingCalibration.h>
-```
-### WeArtTrackingRawData.cpp :
-- The line:
-```c++
-#include "WeArtTrackingRawData.h"
-#include "WeArtController.h"
-```
-changed to 
-```c++
-#include <WEART_SDK/WeArtTrackingRawData.h>
-#include <WEART_SDK/WeArtController.h>
-```

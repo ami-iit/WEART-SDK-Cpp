@@ -3,7 +3,7 @@
 *	https://www.weart.it/
 */
 
-#include <WEART_SDK/WeArtClient.h>
+#include "WeArtClient.h"
 #include <iostream>
 
 #define WIN32_LEAN_AND_MEAN

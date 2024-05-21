@@ -40,4 +40,4 @@ An example source code application is available [here](https://github.com/WEARTH
 ## Copyright
 
 Copyright &copy; 2024 Weart S.r.l.  
-Copyright &copy; 2024 AMI-IIT
+Copyright &copy; 2024 Fondazione Istituto Italiano di Tecnologia

@@ -1,4 +1,4 @@
-#include <WEART_SDK/MiddlewareStatusListener.h>
+#include "MiddlewareStatusListener.h"
 
 void MiddlewareStatusListener::AddStatusCallback(std::function<void(MiddlewareStatusUpdate)> callback)
 {

@@ -1,4 +1,4 @@
-#include <WEART_SDK/WeArtTrackingCalibration.h>
+#include "WeArtTrackingCalibration.h"
 
 WeArtTrackingCalibration::WeArtTrackingCalibration()
 	: WeArtMessageListener({ CalibrationStatusMessage::ID, CalibrationResultMessage::ID }) {}

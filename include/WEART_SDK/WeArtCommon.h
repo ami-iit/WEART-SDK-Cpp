@@ -10,7 +10,7 @@
 #include "nlohmann/json.hpp"
 
 #include <cstdint>   
-typedef uint8_t uint8; 
+typedef uint8_t uint8;
 
 enum class TrackingType {
 	DEFAULT,	//!< Deprecated, contains only closure values 

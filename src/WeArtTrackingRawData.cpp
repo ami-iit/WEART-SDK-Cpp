@@ -4,8 +4,8 @@
 */
 
 
-#include <WEART_SDK/WeArtTrackingRawData.h>
-#include <WEART_SDK/WeArtController.h>
+#include "WeArtTrackingRawData.h"
+#include "WeArtController.h"
 
 WeArtTrackingRawData::WeArtTrackingRawData(HandSide side, ActuationPoint actuation)
 	: WeArtMessageListener({ RawSensorsData::ID }) {

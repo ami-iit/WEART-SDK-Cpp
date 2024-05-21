@@ -1,6 +1,6 @@
-#include <WEART_SDK/WeArtMessageSerializer.h>
+#include "WeArtMessageSerializer.h"
 #include <sstream>
-#include <WEART_SDK/nlohmann/json.hpp>
+#include <nlohmann/json.hpp>
 
 using json = nlohmann::json;
 

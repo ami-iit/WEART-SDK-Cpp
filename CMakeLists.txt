@@ -3,7 +3,7 @@ project(WeArtGloveLib
         LANGUAGES CXX C
         VERSION 1.0.0.0)
 
-list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
+list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR})
 
 # Defines the CMAKE_INSTALL_LIBDIR, CMAKE_INSTALL_BINDIR and many other useful macros.
 # See https://cmake.org/cmake/help/latest/module/GNUInstallDirs.html
@@ -24,16 +24,16 @@ set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
 # List of CPP (source) library files.
 set(${PROJECT_NAME}_SRC
-                    src/MiddlewareStatusListener.cpp
-                    src/WeArtClient.cpp
-                    src/WeArtEffect.cpp
-                    src/WeArtHapticObject.cpp
-                    src/WeArtMessages.cpp
-                    src/WeArtMessageSerializer.cpp
-                    src/WeArtAnalogSensorData.cpp
-                    src/WeArtThimbleTrackingObject.cpp
-                    src/WeArtTrackingCalibration.cpp
-                    src/WeArtTrackingRawData.cpp
+                    MiddlewareStatusListener.cpp
+                    WeArtClient.cpp
+                    WeArtEffect.cpp
+                    WeArtHapticObject.cpp
+                    WeArtMessages.cpp
+                    WeArtMessageSerializer.cpp
+                    WeArtAnalogSensorData.cpp
+                    WeArtThimbleTrackingObject.cpp
+                    WeArtTrackingCalibration.cpp
+                    WeArtTrackingRawData.cpp
 )
 
 # Shared/Dynamic or Static library?
@@ -41,24 +41,24 @@ option(BUILD_SHARED_LIBS "Build libraries as shared as opposed to static" ON)
 
 # List of HPP (header) library files.
 set(${PROJECT_NAME}_HDR
-                    include/WEART_SDK/MiddlewareStatusListener.h
-                    include/WEART_SDK/WeArtClient.h
-                    include/WEART_SDK/WeArtCommon.h
-                    include/WEART_SDK/WeArtController.h
-                    include/WEART_SDK/WeArtEffect.h
-                    include/WEART_SDK/WeArtForce.h
-                    include/WEART_SDK/WeArtHapticObject.h
-                    include/WEART_SDK/WeArtMessageListener.h
-                    include/WEART_SDK/WeArtMessages.h
-                    include/WEART_SDK/WeArtMessageSerializer.h
-                    include/WEART_SDK/WeArtAnalogSensorData.h
-                    include/WEART_SDK/WeArtTemperature.h
-                    include/WEART_SDK/WeArtTexture.h
-                    include/WEART_SDK/WeArtThimbleTrackingObject.h
-                    include/WEART_SDK/WeArtTrackingCalibration.h
-                    include/WEART_SDK/WeArtTrackingRawData.h
-                    include/WEART_SDK/WeArtGloveLib.h
-                    include/WEART_SDK/nlohmann/json.hpp
+                    MiddlewareStatusListener.h
+                    WeArtClient.h
+                    WeArtCommon.h
+                    WeArtController.h
+                    WeArtEffect.h
+                    WeArtForce.h
+                    WeArtHapticObject.h
+                    WeArtMessageListener.h
+                    WeArtMessages.h
+                    WeArtMessageSerializer.h
+                    WeArtAnalogSensorData.h
+                    WeArtTemperature.h
+                    WeArtTexture.h
+                    WeArtThimbleTrackingObject.h
+                    WeArtTrackingCalibration.h
+                    WeArtTrackingRawData.h
+                    WeArtGloveLib.h
+                    nlohmann/json.hpp
 )
 
 # Add SHARED library with source *.cpp in src directory
@@ -80,7 +80,7 @@ set_target_properties(${PROJECT_NAME} PROPERTIES
 
 target_link_libraries(${PROJECT_NAME} windowsapp.lib runtimeobject.lib)
 
-target_include_directories(${PROJECT_NAME} PUBLIC "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/WEART_SDK>"
+target_include_directories(${PROJECT_NAME} PUBLIC "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>"
                                                          "$<INSTALL_INTERFACE:$<INSTALL_PREFIX>/${CMAKE_INSTALL_INCLUDEDIR}/${PROJECT_NAME}>")
 
 install(TARGETS ${PROJECT_NAME}

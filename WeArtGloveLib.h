@@ -6,6 +6,7 @@
  * @date 2023
  * This file created to make it easier when you want to include the header files to y"our own project.
  */
+#define NOMINMAX
 
 #include <iostream>
 #include <string>
@@ -17,7 +18,7 @@
 #include <ppltasks.h>
 #include <algorithm>
 
-
+#undef NOMINMAX
 //WeArtSDK
 
 #include"MiddlewareStatusListener.h"

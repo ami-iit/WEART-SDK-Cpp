@@ -1,6 +1,6 @@
 #include "WeArtMessageSerializer.h"
 #include <sstream>
-#include "nlohmann/json.hpp"
+#include <nlohmann/json.hpp>
 
 using json = nlohmann::json;
 

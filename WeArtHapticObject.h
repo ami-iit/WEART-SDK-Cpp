@@ -24,8 +24,8 @@ public:
 	WeArtHapticObject(WeArtClient* client);
 
 	// Hand/finger state variables
-	int32  handSideFlag;
-	int32 actuationPointFlag;
+	int32_t handSideFlag;
+	int32_t actuationPointFlag;
 
 	// State variables. Serialized.
 	WeArtTemperature weArtTemperature;

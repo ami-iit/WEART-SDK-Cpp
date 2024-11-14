@@ -3,7 +3,6 @@
 *	https://www.weart.it/
 */
 
-#include "pch.h"
 #include "WeArtAnalogSensorData.h"
 #include "WeArtController.h"
 

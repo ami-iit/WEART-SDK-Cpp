@@ -3,7 +3,7 @@
 *	https://www.weart.it/
 */
 
-#include "pch.h"
+
 #include "WeArtTrackingRawData.h"
 #include "WeArtController.h"
 

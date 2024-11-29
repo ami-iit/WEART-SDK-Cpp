@@ -2,8 +2,9 @@
 *	WEART - Raw Analog Sensor Data thimble TD
 *	https://www.weart.it/
 */
-
+#ifndef WEART_CMAKE_COMPILATION
 #include "pch.h"
+#endif
 #include "WeArtAnalogSensorData.h"
 #include "WeArtController.h"
 

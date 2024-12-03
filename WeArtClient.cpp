@@ -9,11 +9,16 @@
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>
 #include <ws2tcpip.h>
-#include <windows.h>
-
 
 #include <ppltasks.h>
+
+#ifndef WEART_CMAKE_COMPILATION
 using namespace Windows::Foundation;
+#else
+#include <roapi.h>
+#include <wrl.h>
+#include <Windows.System.Threading.h>
+#endif
 
 // Need to link with Ws2_32.lib, Mswsock.lib, and Advapi32.lib
 #pragma comment (lib, "Ws2_32.lib")
@@ -111,13 +116,36 @@ void WeArtClient::Run() {
 	Connected = true;
 	NotifyConnectionStatus(true);
 
+#ifndef WEART_CMAKE_COMPILATION
 
-	// receive data in background 
+	// receive data in background
 	auto workItem = ref new Windows::System::Threading::WorkItemHandler([this](IAsyncAction^ workItem) {
 		OnReceive();
-		});
+	});
 
 	auto asyncAction = Windows::System::Threading::ThreadPool::RunAsync(workItem);
+
+#else
+    // Initialize the Windows Runtime.
+    Microsoft::WRL::Wrappers::RoInitializeWrapper initialize(RO_INIT_MULTITHREADED);
+    Microsoft::WRL::ComPtr<ABI::Windows::System::Threading::IThreadPoolStatics> threadPool;
+    HRESULT hr = ABI::Windows::Foundation::GetActivationFactory(Microsoft::WRL::Wrappers::HStringReference(RuntimeClass_Windows_System_Threading_ThreadPool).Get(), &threadPool);
+    Microsoft::WRL::Wrappers::Event threadCompleted(CreateEventEx(nullptr, nullptr, CREATE_EVENT_MANUAL_RESET, WRITE_OWNER | EVENT_ALL_ACCESS));
+    hr = threadCompleted.IsValid() ? S_OK : HRESULT_FROM_WIN32(GetLastError());
+
+    // receive data in background
+    Microsoft::WRL::ComPtr<ABI::Windows::Foundation::IAsyncAction> asyncAction;
+    hr = threadPool->RunAsync(Microsoft::WRL::Callback<ABI::Windows::System::Threading::IWorkItemHandler>([this, &threadCompleted](ABI::Windows::Foundation::IAsyncAction* asyncAction) -> HRESULT
+    {
+        OnReceive();
+
+        // Set the completion event and return.
+        SetEvent(threadCompleted.Get());
+        return S_OK;
+
+    }).Get(), &asyncAction);
+
+#endif
 
 	// Ask first middleware status
 	GetMiddlewareStatus getStatusMessage;
@@ -353,7 +381,7 @@ void WeArtClient::RemoveMessageCallback(WeArtClient::MessageCallback callback)
 {
 	// Find std::function with same target
 	auto target = callback.target<WeArtClient::MessageCallback>();
-	auto it = std::find_if(messageCallbacks.begin(), messageCallbacks.end(), 
+	auto it = std::find_if(messageCallbacks.begin(), messageCallbacks.end(),
 		[&target](WeArtClient::MessageCallback other) {
 			return other.target<WeArtClient::MessageCallback>() == target;
 		});
@@ -387,7 +415,7 @@ std::string WSAGetLastErrorString() {
 	int errorCode = WSAGetLastError();
 
 	LPWSTR errorBuffer = nullptr;
-	FormatMessage(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
+	FormatMessageW(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
 		nullptr, errorCode, MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), reinterpret_cast<LPWSTR>(&errorBuffer), 0, nullptr);
 
 	std::wstring errorWString(errorBuffer);

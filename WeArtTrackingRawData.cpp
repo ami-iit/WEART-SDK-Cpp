@@ -3,7 +3,9 @@
 *	https://www.weart.it/
 */
 
+#ifndef WEART_CMAKE_COMPILATION
 #include "pch.h"
+#endif
 #include "WeArtTrackingRawData.h"
 #include "WeArtController.h"
 
@@ -33,7 +35,7 @@ void WeArtTrackingRawData::OnMessageReceived(WeArtMessage* msg) {
 
 	if (!rawSensorsData->hasSensor(actuationPoint))
 		return;
-	
+
 	Sample sample;
 	sample.timestamp = rawSensorsData->timestamp();
 	sample.data = rawSensorsData->getSensor(actuationPoint);
